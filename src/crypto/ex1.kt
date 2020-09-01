@@ -9,7 +9,7 @@ val theBase64Output = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c
 
 fun main() {
     val myOutput = base64Encode(theHexString);
-    println(assertThat(theBase64Output, myOutput));
+    assertThat(theBase64Output, myOutput);
 }
 
 fun base64Encode(theString: String) : String {
@@ -74,11 +74,11 @@ fun Int.toBinary(len: Int): String {
     return String.format("%" + len + "s", this.toString(2)).replace(" ".toRegex(), "0")
 }
 
-fun assertThat(testValue: String, expectedValue: String) : String {
+fun assertThat(testValue: String, expectedValue: String) {
+    println("Let's Test It Then!")
     if (expectedValue == testValue) {
-        return "${testValue} - Yes, well done!"
+        println("${testValue} - Yes, well done!")
     } else {
-        return "That is really very wrong - try again!"
-    }
-    
+        println("That is really very wrong - try again!")
+    } 
 }
