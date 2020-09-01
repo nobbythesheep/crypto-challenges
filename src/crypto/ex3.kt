@@ -12,6 +12,7 @@ var lowerUpperCharset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012
 // once complete and get the likely candidates, which will have the highest score
 //
 var decodedMap = HashMap<String, Float>()
+var decodedWithMap = HashMap<String, Char>()
 
 fun main() {
     decrypt()
@@ -35,6 +36,7 @@ fun decrypt() {
         for (i in encodedNumbers) {
             result += (i xor y).toChar()
         }
+        wordFrequencyScore(result, x)
     }
     
     // sort the keys into order - the map in Kotlin is really clunky and not good
@@ -54,11 +56,13 @@ fun decrypt() {
 fun printCandidates(list: ArrayList<String>, map: HashMap<String, Float>, toPrint: Int) {
     for (i in 0..toPrint) {
         val score = map.get(list.get(i))
-        println("${list.get(i)} has score:${score}")
+        var key: Char?
+        key = decodedWithMap.get(list.get(i))
+        println("${list.get(i)} has score:${score} and was decoded with: ${key}")
     }
 }
 
-fun wordFrequencyScore(toCheck: String): Float {
+fun wordFrequencyScore(toCheck: String, key: Char): Float {
     
     var totalScore : Float
     totalScore = 0.0f
@@ -73,6 +77,7 @@ fun wordFrequencyScore(toCheck: String): Float {
     // store what we have calculated in the format decrypted:score
     //
     decodedMap.put(toCheck, totalScore)
+    decodedWithMap.put(toCheck, key)
     return totalScore
 }
 
