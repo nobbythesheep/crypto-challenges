@@ -4,8 +4,10 @@ package crypto
 
 fun main() {
 
-    val fileName = "src/data/4.txt"
+    val fileName = "src/data/ex4.txt"
     val lines: List<String> = java.io.File(fileName).readLines()
+    
+    var wordFrequencyScore = ArrayList<WordFrequencyScore>()
     
     // for each line in the file
     //
@@ -31,22 +33,14 @@ fun main() {
                 for (i in encodedNumbers) {
                     result += (i xor y).toChar()
                 }
-                wordFrequencyScore(result, x)
+            
+            wordFrequencyScore.add(wordFrequencyScore(result, x))
         }
-     // sort the keys into order - the map in Kotlin is really clunky and not good
-    // for this type of thing
-    //
-    var decryptedList = ArrayList<String>()
-    val result = decodedMap.toList().sortedBy { (_, value) -> value}.toMap()
-    for (entry in result) {
-        decryptedList.add(entry.key)
-    }
-    decryptedList.reverse()
-    
-    // print out the top n results
-    printCandidates(decryptedList, decodedMap, 3) 
         
     } // end line in file
+    
+    wordFrequencyScore.sortByDescending { it.score }
+    println(wordFrequencyScore[0])
  
 }
 

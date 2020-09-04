@@ -70,15 +70,3 @@ fun base64Encode(theString: String) : String {
     return encodedString
 }
 
-fun Int.toBinary(len: Int): String {
-    return String.format("%" + len + "s", this.toString(2)).replace(" ".toRegex(), "0")
-}
-
-fun assertThat(testValue: String, expectedValue: String) {
-    println("Let's Test It Then!")
-    if (expectedValue == testValue) {
-        println("${testValue} - Yes, well done!")
-    } else {
-        println("That is really very wrong - try again!")
-    } 
-}

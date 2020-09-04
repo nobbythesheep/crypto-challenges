@@ -11,7 +11,7 @@ fun main() {
     assertThat(myResult, expected);
 }
 
-fun myXor(incoming: String, against: String) : String {
+private fun myXor(incoming: String, against: String) : String {
     
     var myResult = ""
     
@@ -27,21 +27,5 @@ fun myXor(incoming: String, against: String) : String {
     return myResult;
 }
 
-// takes in incoming string in HEX and returns an array where each 2-char hex representation
-// is converted to a number
-//
-fun hexToIntArray(input: String) : IntArray {
-    
-    var intArray = IntArray( input.length / 2)
-    var count = 0;
-    
-    val theHexCharArray = input.toCharArray()
-    for (i in 0..(theHexCharArray.size - 1) step 2) {
-        var hexNum = "".plus(theHexCharArray[i]).plus(theHexCharArray[i+1])
-        var num = Integer.parseInt(hexNum, 16)
-        intArray[count] = num
-        count = count.inc()  
-    }
-    return intArray;
-}
+
     
