@@ -40,7 +40,7 @@ fun main() {
     } // end line in file
     
     wordFrequencyScore.sortByDescending { it.score }
-    println(wordFrequencyScore[0])
+    println(wordFrequencyScore[0].toCheck)
  
 }
 

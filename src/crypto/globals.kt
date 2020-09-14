@@ -1,11 +1,27 @@
 package crypto
 
+// lower and upper characters as candidate xor values
+//
+// TODO: refactor this so we have all ASCII characters
+//
+var lowerUpperCharset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 :".toCharArray()
+
+/**
+ * Contains a string that has been through the word frequency score algorithm
+ * having been decoded with a given key. The tuple also contains the score
+ * This is used to determine the key most likely used to have decrypted a
+ * string.
+ */
 data class WordFrequencyScore(val toCheck: String, val key: Char, val score: Float) {
     override fun toString() : String {
         return "${toCheck} has score: ${score} and was decoded with: ${key}"
     }
 }
 
+// given a string, applies the word frequency score algorithm and comes back
+// with a score while storing the key the string was decrypted with
+// for tracking and later calculations
+//
 fun wordFrequencyScore(toCheck: String, key: Char): WordFrequencyScore {
     
     var totalScore : Float
@@ -17,12 +33,15 @@ fun wordFrequencyScore(toCheck: String, key: Char): WordFrequencyScore {
         score = getFrequencyMap().get(lookup) ?: 0.0f
         totalScore = totalScore.plus(score)
     }
+    //println("Score: ${totalScore} for ${toCheck} and key: ${key}")
     
     // store what we have calculated in the format decrypted:score
     //
     return WordFrequencyScore(toCheck, key, totalScore)
 }
 
+// the character frequency map for the English language
+//
 fun getFrequencyMap(): HashMap<Char, Float> {
     
     // https://en.wikipedia.org/wiki/Letter_frequency
@@ -83,10 +102,16 @@ fun hexToIntArray(input: String) : IntArray {
     return intArray;
 }
 
+// for a given integer value, returns a string representation of the binary equivalent
+// e.g., 1 would return "00000001"
+//
 fun Int.toBinary(len: Int): String {
     return String.format("%" + len + "s", this.toString(2)).replace(" ".toRegex(), "0")
 }
 
+// simple Junit style unit test to assert two string values
+// and print out a message if they were/were not equal
+//
 fun assertThat(testValue: String, expectedValue: String) {
     println("Let's Test It Then!")
     if (expectedValue == testValue) {
@@ -107,8 +132,50 @@ fun stringToHex(input: String): String {
     return toReturn;
 }
 
-fun hammingDistance(str1: String, str2: String) : Int {
-    var count: Int = 0
+fun byteToHex(input : ByteArray) : String {
+    var toReturn = ""
+    for (b in input) {
+        val st = String.format("%02X", b)
+        toReturn += st
+    }
+    return toReturn
+}
+
+
+// given a string as HEX, loop through a charset of [A-Za-z0-9] and for each key, decrypt
+// the string. Once decrupted, calculate the word frequency score and return
+//
+fun decrypt(hexString: String) : WordFrequencyScore {
+
+    var encodedNumbers = hexToIntArray(hexString)
+    var wordFrequencyScore = ArrayList<WordFrequencyScore>()
+    
+    // for each character, xor that with each hex value
+    //
+    for (x in lowerUpperCharset) {
+
+        var result = ""
+        
+        // get char value as integer
+        var y = x.toInt()
+        
+        // xor on every character in the encoded string and build up the decrypted value
+        //
+        for (i in encodedNumbers) {
+            result += (i xor y).toChar()
+        }
+        wordFrequencyScore.add(wordFrequencyScore(result, x))
+    }
+    
+    wordFrequencyScore.sortByDescending { it.score }
+    return wordFrequencyScore[0]
+}
+
+// calculates the word distance between two strings and returns
+// the value
+//
+fun hammingDistance(str1: String, str2: String) : Float {
+    var count: Float = 0.0f
     for (i in 0..(str1.length - 1)) {
         val n1 = str1[i].toChar().toInt()
         val n2 = str2[i].toChar().toInt()
@@ -118,3 +185,6 @@ fun hammingDistance(str1: String, str2: String) : Int {
     }
     return count
 }
+
+
+
