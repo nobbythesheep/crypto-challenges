@@ -16,4 +16,8 @@ class HammingDistance {
         }
         return count
     }
+
+    private fun charCount(s: String, c: Char) : Int {
+        return s.filter{ it == c}.count()
+    }
 }

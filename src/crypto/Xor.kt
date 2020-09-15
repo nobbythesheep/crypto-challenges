@@ -31,8 +31,8 @@ class Xor {
     
         var myResult = ""
         
-        val incomingAsIntArray = hexToIntArray(incoming)
-        val againstAsIntArray = hexToIntArray(against)
+        val incomingAsIntArray = HexUtils.hexToIntArray(incoming)
+        val againstAsIntArray = HexUtils.hexToIntArray(against)
                     
         for (i in incomingAsIntArray.indices) {
             val result = incomingAsIntArray[i] xor againstAsIntArray[i]
@@ -59,7 +59,7 @@ class Xor {
             //println("== ${i} ${b} ${c} ::${t}::")
             result += t
         }
-        return stringToHex(result)
+        return HexUtils.stringToHex(result)
     }
     
     /**

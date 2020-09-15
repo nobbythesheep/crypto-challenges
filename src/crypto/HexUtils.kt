@@ -55,7 +55,7 @@ object HexUtils {
      */
     fun decrypt(hexString: String) : WordFrequencyScoreResult {
     
-        var encodedNumbers = HexUtils().hexToIntArray(hexString)
+        var encodedNumbers = HexUtils.hexToIntArray(hexString)
         var wordFrequencyScoreResults = ArrayList<WordFrequencyScoreResult>()
         
         // for each character, xor that with each hex value

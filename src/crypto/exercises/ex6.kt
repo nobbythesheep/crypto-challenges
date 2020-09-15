@@ -184,7 +184,3 @@ fun getKeySize(encrypted: ByteArray) : Int {
 }
 
 
-fun charCount(s: String, c: Char) : Int {
-    return s.filter{ it == c}.count()
-}
-
