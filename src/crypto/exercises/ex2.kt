@@ -12,5 +12,5 @@ fun main() {
     
     val xor = Xor()
     val myResult = xor.xorTogether(theString, xorAgainst)
-    Assertions().assertThat(myResult, expected);
+    Assertions.assertThat(myResult, expected);
 }

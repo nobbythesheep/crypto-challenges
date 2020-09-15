@@ -19,6 +19,6 @@ fun main() {
     // apply the rotating xor encryption
     //
     var hex = Xor().encrypt(toEncrypt, key)
-    Assertions().assertThat(res1, hex)
+    Assertions.assertThat(res1, hex)
 }
 

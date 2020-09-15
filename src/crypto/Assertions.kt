@@ -2,7 +2,7 @@ package crypto
 
 // TODO: what is the real Kotlin way to do this?
 //
-class Assertions {
+object Assertions {
     
     /**
      * Checks two floats against each other

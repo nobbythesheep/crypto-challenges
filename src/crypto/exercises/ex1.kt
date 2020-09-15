@@ -11,5 +11,5 @@ val theBase64Output = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c
 fun main() {
     val base64 = Base64(theHexString)
     val myOutput = base64.encode();
-    Assertions().assertThat(theBase64Output, myOutput);
+    Assertions.assertThat(theBase64Output, myOutput);
 }

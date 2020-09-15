@@ -42,7 +42,7 @@ fun main() {
     } // end line in file
     
     wordFrequencyScore.sortByDescending { it.score }
-    Assertions().assertThat("Now that the party is jumping", wordFrequencyScore[0].toCheck.trim())
+    Assertions.assertThat("Now that the party is jumping", wordFrequencyScore[0].toCheck.trim())
  
 }
 

@@ -7,7 +7,7 @@ fun main() {
     
     // make sure our hamming algorithm is all good
     //
-    Assertions().assertEquals(37.0f, HammingDistance().calculate("this is a test", "wokka wokka!!!"))
+    Assertions.assertEquals(37.0f, HammingDistance().calculate("this is a test", "wokka wokka!!!"))
     
     // read in the file
     //
@@ -111,7 +111,7 @@ fun main() {
         // xor this with a single key
         // and find the key with the best number score
         //
-        var wfScore : WordFrequencyScoreResult = decrypt(hex)
+        var wfScore : WordFrequencyScoreResult = HexUtils().decrypt(hex)
         
         // add this key to a running string buffer
         // when we are done, this should be the key for the
