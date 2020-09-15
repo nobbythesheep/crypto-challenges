@@ -17,7 +17,7 @@ fun main() {
         
         // convert to binary
         //
-        var encodedNumbers = HexUtils().hexToIntArray(line)
+        var encodedNumbers = HexUtils.hexToIntArray(line)
         
         // for each candidate key
         // decrypt using xor

@@ -3,7 +3,7 @@ package crypto
 /**
  * Utility methods to make working with hex easier
  */
-class HexUtils {
+object HexUtils {
     
     /**
      * Converts a string to hex representation, making sure each hex value is 2-characters

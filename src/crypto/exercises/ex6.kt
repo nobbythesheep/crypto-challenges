@@ -106,12 +106,12 @@ fun main() {
     var finalKey : String = ""
     for (block in transposedBlockList) {
         
-        val hex = HexUtils().byteToHex(block.toByteArray())
+        val hex = HexUtils.byteToHex(block.toByteArray())
 
         // xor this with a single key
         // and find the key with the best number score
         //
-        var wfScore : WordFrequencyScoreResult = HexUtils().decrypt(hex)
+        var wfScore : WordFrequencyScoreResult = HexUtils.decrypt(hex)
         
         // add this key to a running string buffer
         // when we are done, this should be the key for the
