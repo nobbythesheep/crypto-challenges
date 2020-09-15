@@ -1,14 +1,13 @@
-package crypto
+package crypto.exercises
 
-private var keyCounter: Int = 0
-private var keySize: Int = 0
-private var key: CharArray = "".toCharArray()
+import crypto.*
+
 
 fun main() {
     
     // make sure our hamming algorithm is all good
     //
-    assertEquals(37.0f, hammingDistance("this is a test", "wokka wokka!!!"))
+    Assertions().assertEquals(37.0f, HammingDistance().calculate("this is a test", "wokka wokka!!!"))
     
     // read in the file
     //
@@ -107,12 +106,12 @@ fun main() {
     var finalKey : String = ""
     for (block in transposedBlockList) {
         
-        val hex = byteToHex(block.toByteArray())
+        val hex = HexUtils().byteToHex(block.toByteArray())
 
         // xor this with a single key
         // and find the key with the best number score
         //
-        var wfScore : WordFrequencyScore = decrypt(hex)
+        var wfScore : WordFrequencyScoreResult = decrypt(hex)
         
         // add this key to a running string buffer
         // when we are done, this should be the key for the
@@ -122,10 +121,9 @@ fun main() {
     }
     
     println("Final key: ${finalKey}")
-    setKey(finalKey)
     
     println("============================")
-    println(xorRotatingKeyDecrypt(encrypted))
+    println(Xor().decrypt(encrypted, finalKey))
 }
 
 fun getBlocks(input: ByteArray, keySize: Int) : List<ByteArray> {
@@ -146,29 +144,7 @@ fun getBlocks(input: ByteArray, keySize: Int) : List<ByteArray> {
     return blocks
 }
 
-fun xorRotatingKeyDecrypt(encrypted: ByteArray) : String {
-    var result : String = ""
-    for (c in encrypted) {
-        val kc = getKey()
-        result += (c.toInt() xor kc.toInt()).toChar()
-    }
-    return result
-}
 
-private fun setKey(myKey: String) {
-    key = myKey.toCharArray()
-    keySize = myKey.toCharArray().size
-}
-
-private fun getKey(): Char {
-    var k = key[keyCounter]
-    if (keyCounter >= (keySize - 1)) {
-        keyCounter = 0
-    } else {
-        keyCounter++
-    }
-    return k
-}
 
 // returns a candidate key size for an encrypted string
 // using hamming distance - if all fails, return zero
@@ -186,7 +162,7 @@ fun getKeySize(encrypted: ByteArray) : Int {
         var counter : Int = 0
         while (startAt < (encrypted.size - keySize)) {
             var nextBlock = encrypted.copyOfRange(startAt, (startAt + keySize))
-            var distance : Float = hammingDistance(String(firstBlock), String(nextBlock)) / keySize
+            var distance : Float = HammingDistance().calculate(String(firstBlock), String(nextBlock)) / keySize
             totalDistance += distance
             startAt += keySize
             counter++
@@ -212,11 +188,3 @@ fun charCount(s: String, c: Char) : Int {
     return s.filter{ it == c}.count()
 }
 
-private fun assertEquals(n1: Float, n2: Float) : Boolean {
-    if (n1 == n2) {
-        println("All is well")
-        return true
-    } else {
-        throw Exception("All is not well")
-    }
-}
