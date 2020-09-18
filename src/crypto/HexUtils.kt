@@ -27,8 +27,7 @@ object HexUtils {
             toReturn += st
         }
         return toReturn
-    }
-    
+    }    
     
     /**
      * Takes in incoming string in HEX and returns an array where each 2-char hex representation
