@@ -29,4 +29,16 @@ object Assertions {
         } 
     }
     
+    /**
+     * Compares the first in with the second int and returns true if
+     * the second is greater than the first, else throws an exception
+     */
+    fun assertGreaterThan(int1: Int, int2: Int) : Boolean {
+        if (int1 > int2) {
+            return true
+        } else {
+            throw IllegalArgumentException("WRONG!!!!")
+        }
+    }
+    
 }
