@@ -18,7 +18,7 @@ object AesCbc {
         var ourBytes = input.copyOf()
         if (input.size < 16) {
             // we need to pad
-            ourBytes = Padding.padBytes(input, 16)
+            ourBytes = Padding.pad(input)
             println("Padding required. Size was < 16")
         }
         if (input.size % 16 == 0) {
@@ -28,7 +28,7 @@ object AesCbc {
             var padSize : Int = input.size % 16
             padSize = input.size.plus(16 - padSize)
             println("Having to pad ${padSize} bytes")
-            ourBytes = Padding.padBytes(input, padSize)
+            //ourBytes = Padding.pad(input, padSize)
         }
         println("Byte array is now: ${ourBytes.size}")
         
