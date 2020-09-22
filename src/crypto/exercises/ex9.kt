@@ -1,6 +1,7 @@
 package crypto.exercises
 
 import crypto.Padding
+import crypto.Assertions
 
 // https://cryptopals.com/sets/2/challenges/9
 
@@ -9,6 +10,6 @@ fun main() {
     if (padded.size != 20) {
         throw Exception("Oh dear - something broke!")
     }
-    println(String(padded))
+    Assertions.assertThat(String(padded), "YELLOW SUBMARINE")
 }
 

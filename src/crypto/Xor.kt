@@ -44,6 +44,25 @@ class Xor {
     }
     
     /**
+     * Performs a XOR operation on two incoming byte arrays
+     */
+    fun xorBytesTogether(incoming: ByteArray, against: ByteArray) : ByteArray {
+        
+        if (incoming.size != against.size) {
+            throw IllegalArgumentException("Input strings must be of equal length")
+        }
+        
+        var result = ArrayList<Byte>()
+        
+        for (i in incoming.indices) {
+            val xorResult = incoming[i].toInt() xor against[i].toInt()
+            result.add(xorResult.toByte())
+        }
+        
+        return result.toByteArray()
+    }
+    
+    /**
      * For an incoming string, xor each character using the xor rotating key method
      *
      * @param input the string to encrypt

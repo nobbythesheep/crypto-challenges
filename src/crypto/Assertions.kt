@@ -16,6 +16,25 @@ object Assertions {
         }
     }
     
+    fun assertEquals(n1: Int, n2: Int) : Boolean {
+        if (n1 == n2) {
+            println("All is well")
+            return true
+        } else {
+            throw Exception("All is not well")
+        }
+    }
+    
+    fun assertBytesAreEqual(input: ByteArray, compareWith: ByteArray): Boolean {
+        
+        if (input.size != compareWith.size) {
+            throw Exception("Size of two byte arrays are wrong ${input.size} vs ${compareWith.size}}")
+        }
+        
+        return true
+        
+    }
+    
     /**
      * Simple Junit style unit test to assert two string values
      * and print out a message if they were/were not equal

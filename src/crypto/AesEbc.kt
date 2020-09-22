@@ -5,15 +5,16 @@ import javax.crypto.spec.*
 import java.security.*
 
 /**
- * Implements AES encrypt/decrypt methods
+ * Implements AES encrypt/decrypt methods using EBC mode
  */
-object AES {
+object AesEbc {
+    
     val cipher: Cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
 
     /**
      * Encrypts a given byte array with encryption key
      */
-    fun encrypt(input: ByteArray, key: String): String {
+    fun encrypt(input: ByteArray, key: String): ByteArray {
         val encrypted: ByteArray = try {
             
             val secretKey = SecretKeySpec(key.toByteArray(), "AES")
@@ -24,13 +25,13 @@ object AES {
             throw e
         }
 
-        return String(encrypted)
+        return encrypted
     }
 
     /**
      * Decrypts a given byte array with decryption key
      */
-    fun decrypt(input: ByteArray, key: String): String {
+    fun decrypt(input: ByteArray, key: String): ByteArray {
         val output: ByteArray = try {
             
             val secretKey = SecretKeySpec(key.toByteArray(), "AES")
@@ -41,7 +42,7 @@ object AES {
             throw e
         }
 
-        return String(output)
+        return output
     }
 
 }
