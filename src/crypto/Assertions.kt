@@ -30,7 +30,7 @@ object Assertions {
         if (input.size != compareWith.size) {
             throw Exception("Size of two byte arrays are wrong ${input.size} vs ${compareWith.size}}")
         }
-        
+        println("Well done! Bytes are equal")
         return true
         
     }
