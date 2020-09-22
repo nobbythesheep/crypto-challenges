@@ -54,9 +54,29 @@ object Padding {
         for (b in 0..(16 - padSize - 1)) {
             ourBytes.add(padByte.toByte())
         }
-        
         return ourBytes.toByteArray()
-
+    }
+    
+    fun strip(input: ByteArray) : ByteArray {
+        
+        // get the last byte int value
+        //
+        val lastByteIntValue = input[input.size - 1].toInt()
+        //println("Last byte int value ${lastByteIntValue}")
+        
+        var isPadded = true
+        
+        for (n in (input.size - 1) downTo (input.size - lastByteIntValue)) {
+            //println("Pad byte value: ${input[n].toInt()}")
+            isPadded = input[n].toInt() == lastByteIntValue
+        }
+        //println("Padded state: ${isPadded}")
+        
+        if (isPadded) {
+            return input.copyOfRange(0, (input.size - lastByteIntValue))
+        } else {
+            return input
+        }
     }
 
 }
