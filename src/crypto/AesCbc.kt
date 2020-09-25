@@ -37,7 +37,7 @@ object AesCbc {
         //println("xorText size: ${xorText.size}")
 
         for (i in 1..(blocks.size-1)) {
-            println("Processing block: ${i} of size ${blocks[i].size}")
+            //println("Processing block: ${i} of size ${blocks[i].size}")
             var block = blocks[i]
             ciphertext = Xor().xorBytesTogether(ciphertext, block)
             ciphertext = _encrypt(ciphertext, key)
