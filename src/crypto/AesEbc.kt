@@ -50,11 +50,12 @@ object AesEbc {
      * and store in a hash map with an incrementing count.
      * Once done, any counter that is > 1 is a likely ECB hit
      */
-    fun detectECB(input: ByteArray): List<String> {
+    fun detectECB(input: ByteArray): Boolean {
         
         var toReturn : ArrayList<String> = ArrayList<String>()
         
         var map = HashMap<String, Int>()
+        
         val blocks : List<ByteArray> = ArrayUtils.getBlocks(input, 16)
         for (block in blocks) {
             val content = String(block)
@@ -66,12 +67,13 @@ object AesEbc {
         val result = map.toList().sortedBy { (_, value) -> value}.toMap()
         for (r in result) {
             if (r.value > 1) {
-                println("Possible ECB detected: ${String(input)}")
-                println("Got duplicate ${r.key} ${r.value}")
+                //println("Possible EBC detected: ${String(input)}")
+                //println("Got duplicate ${r.key} ${r.value}")
                 toReturn.add(r.key)
+                return true
             }
         }
-        return toReturn
+        return toReturn.size > 0
     }
 
 }

@@ -9,35 +9,39 @@ fun main() {
     
     testRandomAesKey()
     
-    val text = "This is some plain text This is some plain text we are going to encrypt at random and then try to detect later on"
+    val text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     
-    for (n in 1..100) {
-        var bytes = RandomUtils.encrypt(text.toByteArray())
-        println(HexUtils.byteToHex(bytes))
+    println("plain text length is ${text.length}")
+    
+    var foundECB = 0
+    
+    for (n in 1..1000000) {
+    
+        var randomEncryptionResult = RandomUtils.encrypt(text.toByteArray())
         
-        // since we may have padding, we'll need to cycle through the bytes
-        // and test out different variations
-        //
-        loop@ for (x in 0..(bytes.size - 1)) {
-            val toTest = bytes.copyOfRange(x, (bytes.size - 1))
-            println(HexUtils.byteToHex(toTest))
-            try {
-                val count = AesEbc.detectECB(toTest).size
-                if (count > 1) {
-                    println("+++++++ ECB Detected ++++++++++")
-                    continue@loop
-                }
-            } catch (e: IllegalArgumentException) {
-                // probaby uneven byte lengths
-                println(e)
-            }
+        val ecbResult = AesEbc.detectECB(randomEncryptionResult.ciphertext)
+        
+        if (ecbResult && randomEncryptionResult.type.equals("CBC")) {
+            throw Exception("Failed to pick up on EBC encryption")
+        }
+        
+        if (ecbResult && randomEncryptionResult.type.equals("EBC")) {
+            foundECB += 1
+            println("+++++++ EBC Correctly Detected ++++++++++")
+            println(HexUtils.byteToHex(randomEncryptionResult.ciphertext))
         }
     }
     
+    if (foundECB == 0) {
+        throw Exception("Must have found at least one EBC!")
+    }
+    
+    println("All is well with the EBC detection")
 }
 
+
 fun testRandomAesKey() {
+    println("Testing random AES key length")
     val key = RandomUtils.generateAesKey()
-    println("Random key is ${key}")
     Assertions.assertEquals(16, key.length)
 }

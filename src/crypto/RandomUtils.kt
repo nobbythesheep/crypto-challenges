@@ -4,6 +4,9 @@ import kotlin.random.Random
 import crypto.AesCbc
 import crypto.AesEbc
 
+/**
+ * Creates the black box required for Ex 11
+ */
 object RandomUtils {
     
     /**
@@ -22,17 +25,18 @@ object RandomUtils {
         return alphaNumeric.shuffled().take(16).joinToString("")
     }
     
+    class RandomEncryptionResult(val type: String, val ciphertext: ByteArray) {
+        
+    }
     /**
      * Encrypts a byte array using either AES CBC or EBC mode, decided at random
      */
-    fun encrypt(input: ByteArray) : ByteArray {
+    fun encrypt(input: ByteArray) : RandomEncryptionResult {
         val choice = (1..2).shuffled().first()
         if (choice == 1) {
-            println("Using CBC")
-            return encryptWithRandomKey_CBC(input)
+            return RandomEncryptionResult("CBC", encryptWithRandomKey_CBC(input))
         } else {
-            println("Using EBC")
-            return encryptWithRandomKey_EBC(input)
+            return RandomEncryptionResult("EBC", encryptWithRandomKey_EBC(input))
         }
     }
     
@@ -45,14 +49,19 @@ object RandomUtils {
         
         var toEncrypt = ArrayList<Byte>()
         
-        val firstRandomByteLen = Random.nextInt(5,10)
-        val lastRandomByteLen = Random.nextInt(5,10)
+        val firstRandomByteLen = Random.nextInt(5,11)
+        val lastRandomByteLen = Random.nextInt(5,11)
         
         var firstBytes = ByteArray(firstRandomByteLen)
         firstBytes = Random.nextBytes(firstBytes)
+        
         var lastBytes = ByteArray(lastRandomByteLen)
         lastBytes = Random.nextBytes(lastRandomByteLen)
         
+        // add the random first bytes, then all the input plaintext, then the last random bytes
+        // to form a new byte array that will be then encrypted
+        // as per ex11's specification
+        //
         for (b in firstBytes) {
             toEncrypt.add(b)
         }

@@ -11,9 +11,11 @@ fun main() {
 
     var counter = 0
     java.io.File(fileName).forEachLine(Charsets.UTF_8) {
-        counter += AesEbc.detectECB(it.toByteArray()).size
+        if (AesEbc.detectECB(it.toByteArray())) {
+            counter += 1
+        }
     }
-    Assertions.assertGreaterThan(counter, 1)
+    Assertions.assertGreaterThan(counter, 0)
     
 }
 
