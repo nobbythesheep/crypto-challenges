@@ -1,6 +1,6 @@
 package crypto.exercises
 
-import crypto.AesEbc
+import crypto.AesEcb
 import crypto.Assertions
 
 fun main() {
@@ -11,7 +11,7 @@ fun main() {
 
     var counter = 0
     java.io.File(fileName).forEachLine(Charsets.UTF_8) {
-        if (AesEbc.detectECB(it.toByteArray())) {
+        if (AesEcb.detectECB(it.toByteArray())) {
             counter += 1
         }
     }

@@ -13,6 +13,6 @@ fun main() {
     java.io.File(fileName).forEachLine(Charsets.UTF_8) { base64 += it }
     val encrypted = java.util.Base64.getDecoder().decode(base64)
     
-    var result = AesEbc.decrypt(encrypted, "YELLOW SUBMARINE")
+    var result = AesEcb.decrypt(encrypted, "YELLOW SUBMARINE")
     println(result)
 }

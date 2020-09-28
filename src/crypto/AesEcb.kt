@@ -5,9 +5,9 @@ import javax.crypto.spec.*
 import java.security.*
 
 /**
- * Implements AES encrypt/decrypt methods using EBC mode
+ * Implements AES encrypt/decrypt methods using ECB mode
  */
-object AesEbc {
+object AesEcb {
     
     val cipher: Cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
 

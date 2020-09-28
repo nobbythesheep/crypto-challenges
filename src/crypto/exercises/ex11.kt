@@ -1,8 +1,8 @@
 package crypto.exercises
 
-import crypto.RandomUtils
+import crypto.AESDetectionOracle
 import crypto.Assertions
-import crypto.AesEbc
+import crypto.AesEcb
 import crypto.HexUtils
 
 // https://cryptopals.com/sets/2/challenges/11
@@ -20,12 +20,24 @@ fun main() {
     
     var foundECB = 0
     
+    // loop through tons of attempts to ensure we get good coverage
+    // over the random byte data and lengths added to the plain text
+    // before encrypting
+    //
     for (n in 1..1000000) {
     
-        var randomEncryptionResult = RandomUtils.encrypt(text.toByteArray())
+        // generate some ciphertext
+        //
+        var randomEncryptionResult = AESDetectionOracle.encrypt(text.toByteArray())
         
-        val ecbResult = AesEbc.detectECB(randomEncryptionResult.ciphertext)
+        // run through the detection algorithm
+        //
+        val ecbResult = AesEcb.detectECB(randomEncryptionResult.ciphertext)
         
+        // run assertions to ensure all is good
+        // we should never get a ECB method that isn't detected
+        // for the input plain text string provided
+        //
         if (ecbResult && randomEncryptionResult.type.equals("CBC")) {
             throw Exception("Failed to pick up on EBC encryption")
         }
@@ -44,9 +56,11 @@ fun main() {
     println("All is well with the EBC detection")
 }
 
-
+/**
+ * Let's make sure the random key routing works
+ */
 fun testRandomAesKey() {
     println("Testing random AES key length")
-    val key = RandomUtils.generateAesKey()
+    val key = AESDetectionOracle.generateAesKey()
     Assertions.assertEquals(16, key.length)
 }

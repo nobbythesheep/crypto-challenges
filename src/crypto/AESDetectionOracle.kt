@@ -2,12 +2,12 @@ package crypto
 
 import kotlin.random.Random
 import crypto.AesCbc
-import crypto.AesEbc
+import crypto.AesEcb
 
 /**
  * Creates the black box required for Ex 11
  */
-object RandomUtils {
+object AESDetectionOracle {
     
     /**
      * Generates a byte array of length 16 filled with random bytes
@@ -25,9 +25,12 @@ object RandomUtils {
         return alphaNumeric.shuffled().take(16).joinToString("")
     }
     
-    class RandomEncryptionResult(val type: String, val ciphertext: ByteArray) {
-        
-    }
+    /**
+     * Returns information about an encryption operation performed by the oracle
+     */
+    class RandomEncryptionResult(val type: String, val ciphertext: ByteArray) {   }
+    
+    
     /**
      * Encrypts a byte array using either AES CBC or EBC mode, decided at random
      */
@@ -95,6 +98,6 @@ object RandomUtils {
     fun encryptWithRandomKey_EBC(input: ByteArray) : ByteArray {
         val key = generateAesKey()
         var toEncrypt = addRandomBytes(input)
-        return AesEbc.encrypt(toEncrypt, key)
+        return AesEcb.encrypt(toEncrypt, key)
     }
 }

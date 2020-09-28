@@ -2,7 +2,7 @@ package crypto
 
 // https://cryptopals.com/sets/2/challenges/10
 
-import crypto.AesEbc
+import crypto.AesEcb
 
 val key = "YELLOW SUBMARINE"
 
@@ -31,9 +31,9 @@ private fun verifyAES() {
     
     // quick test of the encryption/decryption
     //
-    val encrypted = AesEbc.encrypt(key.toByteArray(), "arsearsearsearse") 
+    val encrypted = AesEcb.encrypt(key.toByteArray(), "arsearsearsearse") 
     Assertions.assertEquals(encrypted.size, 32)
-    val decrypted = AesEbc.decrypt( encrypted, "arsearsearsearse")
+    val decrypted = AesEcb.decrypt( encrypted, "arsearsearsearse")
     Assertions.assertThat(key, String(decrypted))  
 }
 
