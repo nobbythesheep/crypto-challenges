@@ -5,6 +5,11 @@ import crypto.Assertions
 import crypto.AesEbc
 import crypto.HexUtils
 
+// https://cryptopals.com/sets/2/challenges/11
+
+/**
+ * EBC detection challenge
+ */
 fun main() {
     
     testRandomAesKey()
