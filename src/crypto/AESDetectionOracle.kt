@@ -82,7 +82,7 @@ object AESDetectionOracle {
      * Encrypts an input byte array with a random 16 byte key, a random IV
      * and random padding before and after the main array to encrypt
      */
-    fun encryptWithRandomKey_CBC(input: ByteArray) : ByteArray {
+    private fun encryptWithRandomKey_CBC(input: ByteArray) : ByteArray {
         
         val iv = generateIV()        
         val key = generateAesKey()
@@ -95,7 +95,7 @@ object AESDetectionOracle {
      * Encrypts an input byte array with a random 16 byte key and
      * random bytes before and after the array to encrypt
      */
-    fun encryptWithRandomKey_EBC(input: ByteArray) : ByteArray {
+    private fun encryptWithRandomKey_EBC(input: ByteArray) : ByteArray {
         val key = generateAesKey()
         var toEncrypt = addRandomBytes(input)
         return AesEcb.encrypt(toEncrypt, key)

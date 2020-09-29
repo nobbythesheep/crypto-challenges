@@ -9,7 +9,6 @@ object Assertions {
      */
     fun assertEquals(n1: Float, n2: Float) : Boolean {
         if (n1 == n2) {
-            println("All is well")
             return true
         } else {
             throw Exception("All is not well")
@@ -18,7 +17,6 @@ object Assertions {
     
     fun assertEquals(n1: Int, n2: Int) : Boolean {
         if (n1 == n2) {
-            println("All is well")
             return true
         } else {
             throw Exception("All is not well")
@@ -40,9 +38,7 @@ object Assertions {
      * and print out a message if they were/were not equal
      */
     fun assertThat(testValue: String, expectedValue: String) {
-        println("Let's Test It Then!")
         if (expectedValue == testValue) {
-            println("${testValue} - Yes, well done!")
         } else {
             println("That is really very wrong - try again!")
         } 

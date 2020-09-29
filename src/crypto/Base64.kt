@@ -3,7 +3,7 @@ package crypto
 /**
  * Provides base64 encoding/decoding functions
  */
-class Base64(val target: String) {
+object Base64 {
     
     // create the lookup list of numbers to characters
     //
@@ -20,7 +20,7 @@ class Base64(val target: String) {
     /**
      * Encodes the string provided in the constructor
      */
-    fun encode() : String {
+    fun encode(target: String) : String {
 
         var encodedString = ""
         
@@ -71,5 +71,12 @@ class Base64(val target: String) {
         }
         
         return encodedString
+    }
+    
+    /**
+     * Decodes an incoming base64-encoded string
+     */
+    fun decode(base64: String): ByteArray {
+        return java.util.Base64.getDecoder().decode(base64)
     }
 }

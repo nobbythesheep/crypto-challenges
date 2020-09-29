@@ -70,7 +70,7 @@ object Padding {
             //println("Pad byte value: ${input[n].toInt()}")
             isPadded = input[n].toInt() == lastByteIntValue
         }
-        //println("Padded state: ${isPadded}")
+        //println("Padded state: ${isPadded} and with ${lastByteIntValue} bytes")
         
         if (isPadded) {
             return input.copyOfRange(0, (input.size - lastByteIntValue))

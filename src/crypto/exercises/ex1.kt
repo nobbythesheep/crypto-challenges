@@ -9,7 +9,6 @@ val theBase64Output = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c
 // https://cryptopals.com/sets/1/challenges/1
 
 fun main() {
-    val base64 = Base64(theHexString)
-    val myOutput = base64.encode();
+    val myOutput = Base64.encode(theHexString);
     Assertions.assertThat(theBase64Output, myOutput);
 }
