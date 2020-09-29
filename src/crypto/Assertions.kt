@@ -40,7 +40,7 @@ object Assertions {
     fun assertThat(testValue: String, expectedValue: String) {
         if (expectedValue == testValue) {
         } else {
-            println("That is really very wrong - try again!")
+            throw Exception("That is really very wrong - try again!")
         } 
     }
     
